@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <!-- <router-view></router-view> -->
     <el-button type="primary">primary</el-button>
   </div>
 </template>
