@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Message } from 'element-ui/types/element-ui';
+import { Message } from 'element-ui';
 const service = axios.create({
   // baseURL: 'http://jsonplaceholder.typicode.com',
   // baseURL: 'http://127.0.0.1:3000',

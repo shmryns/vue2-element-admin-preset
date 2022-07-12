@@ -1,8 +1,9 @@
-// import request from '@/utils/request';
+import request from '@/utils/request';
 
-// export const getTodos = () => {
-//   return request({
-//     method: 'get',
-//     url: '/todos'
-//   })
-// }
+export const login = (data) => {
+  return request({
+    method: 'post',
+    url: '/login',
+    data,
+  });
+};
