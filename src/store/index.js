@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import tabbar from './modules/tabbar'
-// import home from './modules/home'
-// import tabbar from './modules/tabbar'
+// import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex);
 
 const modulesFiles = require.context('./modules', true, /\.js$/);
@@ -15,6 +13,11 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 }, {});
 
 // console.log(modules);
+// const dataState = createPersistedState({
+//   key: 'dataState',
+// });
+
 export default new Vuex.Store({
   modules,
+  // plugins: [dataState],
 });

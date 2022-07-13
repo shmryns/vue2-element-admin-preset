@@ -1,4 +1,4 @@
-import { login } from '@/api';
+import { login } from '@/api/user';
 import storage from '@/utils/storage';
 const state = {
   token: storage.getItem('token'),
@@ -12,14 +12,20 @@ const mutations = {
   SET_USERINFO(state, userInfo) {
     state.userInfo = userInfo;
   },
+  LOGOUT() {
+    storage.clearAll();
+  },
 };
 
 const actions = {
   login({ commit }, params) {
     return new Promise((resolve, reject) => {
       login(params)
+        .catch((err) => {
+          reject(err);
+        })
         .then((res) => {
-          if (res.code === 200) {
+          if (res.status === 200) {
             storage.setItem('token', res.data.message.token);
             storage.setItem('userInfo', res.data.message);
             commit('SET_TOKEN', res.data.message.token);
@@ -28,9 +34,6 @@ const actions = {
           } else {
             reject(res);
           }
-        })
-        .catch((err) => {
-          reject(err);
         });
     });
   },

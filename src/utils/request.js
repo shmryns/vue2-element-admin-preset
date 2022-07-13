@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Message } from 'element-ui';
+import storage from './storage';
 const service = axios.create({
   // baseURL: 'http://jsonplaceholder.typicode.com',
   // baseURL: 'http://127.0.0.1:3000',
@@ -8,6 +9,9 @@ const service = axios.create({
 });
 
 service.interceptors.request.use((config) => {
+  if (storage.getItem('token')) {
+    config.headers['Authorization'] = storage.getItem('token');
+  }
   return config;
 });
 

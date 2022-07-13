@@ -18,7 +18,6 @@
   </el-card>
 </template>
 <script>
-import { login } from '@/api';
 export default {
   data() {
     return {
@@ -41,12 +40,22 @@ export default {
   },
   methods: {
     handleLogin(refName) {
+      this.isLogin = true;
       this.$refs[refName].validate((valid) => {
         if (valid) {
           this.$store.dispatch('user/login', this.form).then((res) => {
             console.log(res);
-            // this.$router.push('/');
+            if (res.data.code === 200) {
+              this.$message.success('登录成功! 正在跳转...');
+              this.$router.push('/');
+            } else {
+              this.$message.error('登录失败! 请检查用户名和密码');
+            }
+            this.isLogin = false;
           });
+        } else {
+          this.$message.error('请填写正确信息');
+          this.isLogin = false;
         }
       });
     },
