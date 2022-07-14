@@ -3,15 +3,19 @@
     <div class="left">
       <i :class="opened ? 'el-icon-s-fold' : 'el-icon-s-unfold'" @click="toggle"></i>
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+        <!-- <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ this.$route.meta.title }}</el-breadcrumb-item> -->
+        <el-breadcrumb-item v-for="item in routes" :to="item.path" :key="item.name">
+          <router-link to="/" v-if="!item.path">首页</router-link>
+          {{ item.meta.title }}
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="right">
-      <el-dropdown @command="handleClick">
-        <span>{{ name }}&nbsp;&nbsp;</span>
-        <img :src="icon" alt="iconb" />
+      <el-dropdown @command="handleClick" trigger="click">
+        <div class="myadmin">
+          <span>{{ name }}&nbsp;&nbsp;</span> <img :src="icon" alt="iconb" />
+        </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="a">
             <i class="el-icon-user"></i>
@@ -39,11 +43,19 @@ export default {
   data() {
     return {};
   },
-  computed: mapState({
-    icon: (state) => state.user.userInfo.icon,
-    opened: (state) => state.tabbar.opened,
-    name: (state) => state.user.userInfo.userName,
-  }),
+  computed: {
+    ...mapState({
+      icon: (state) => state.user.userInfo.icon,
+      opened: (state) => state.tabbar.opened,
+      name: (state) => state.user.userInfo.userName,
+    }),
+    routes() {
+      return this.$route.matched;
+    },
+  },
+  mounted() {
+    console.log(this.routes);
+  },
   methods: {
     toggle() {
       this.$store.commit('tabbar/TOGGLE_TABBAR');
@@ -62,6 +74,9 @@ export default {
 <style lang="scss" scoped>
 .el-breadcrumb {
   margin-left: 8px;
+}
+.myadmin {
+  cursor: pointer;
 }
 .navbar {
   display: flex;

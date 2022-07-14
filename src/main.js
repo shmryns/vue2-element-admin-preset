@@ -5,9 +5,10 @@ import store from './store';
 import ElementUI from 'element-ui';
 import './styles.scss';
 import './assets/base.css';
+import * as echarts from 'echarts';
 
 Vue.use(ElementUI);
-
+Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false;
 
 new Vue({

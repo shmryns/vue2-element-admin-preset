@@ -4,7 +4,6 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const modulesFiles = require.context('./modules', true, /\.js$/);
-
 const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1');
   const value = modulesFiles(modulePath);
@@ -12,7 +11,13 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   return modules;
 }, {});
 
-// console.log(modules);
+// 自动导入所有的模块
+// const modules = {};
+// const files = require.context('./modules', true, /\.js$/);
+// files.keys().forEach((key) => {
+//   modules[key.replace(/(\.\/|\.js)/g, '')] = files(key).default;
+// });
+
 // const dataState = createPersistedState({
 //   key: 'dataState',
 // });

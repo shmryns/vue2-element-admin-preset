@@ -1,7 +1,5 @@
 <template>
-  <div class="main">
-    <router-view></router-view>
-  </div>
+  <div class="map1">map1</div>
 </template>
 <script>
 export default {

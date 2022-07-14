@@ -1,7 +1,5 @@
 <template>
-  <div class="main">
-    <router-view></router-view>
-  </div>
+  <div class="user">user</div>
 </template>
 <script>
 export default {

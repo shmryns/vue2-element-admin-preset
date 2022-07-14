@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Message } from 'element-ui';
 import storage from './storage';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css'; //这个样式必须引入
 const service = axios.create({
   // baseURL: 'http://jsonplaceholder.typicode.com',
   // baseURL: 'http://127.0.0.1:3000',
@@ -9,6 +11,7 @@ const service = axios.create({
 });
 
 service.interceptors.request.use((config) => {
+  NProgress.start();
   if (storage.getItem('token')) {
     config.headers['Authorization'] = storage.getItem('token');
   }
@@ -17,9 +20,11 @@ service.interceptors.request.use((config) => {
 
 service.interceptors.response.use(
   (response) => {
+    NProgress.done();
     return response;
   },
   (err) => {
+    NProgress.done();
     if (err.response) {
       if (err.response.status === 400) {
         console.log('网络请求失败');

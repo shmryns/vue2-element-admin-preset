@@ -11,13 +11,16 @@ const mutations = {
 
 const actions = {
   getMenu: async ({ commit }) => {
-    const { data } = await getMenu();
-    commit('SET_MENU', data);
+    const {
+      data: { message },
+    } = await getMenu();
+    commit('SET_MENU', message);
   },
 };
 
 const getters = {
-  menu: (state) => state.menu.message,
+  hasChild: (state) => state.menu.filter((item) => item.children),
+  notChild: (state) => state.menu.filter((item) => !item.children),
 };
 
 export default {
