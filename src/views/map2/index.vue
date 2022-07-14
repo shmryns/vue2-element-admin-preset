@@ -1,5 +1,5 @@
 <template>
-  <div class="map2">map2</div>
+  <div id="container"></div>
 </template>
 <script>
 export default {
@@ -8,4 +8,9 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#container {
+  width: 100%;
+  height: 100%;
+}
+</style>
